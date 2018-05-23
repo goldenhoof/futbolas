@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block page %}
+
+<div class="jumbotron">
+
+<h3 style="text-align:center">{{ zaidejas.user.username }}: {{ zaidejas.taskai| floatformat:2  }}</h3>
+<br>
+
+{% for stavke in stavkes reversed %}
+{% if stavke.rungtynes.prasidejo == True %}
+
+<ul class="list-group-horizontal">
+  <li class="list-group-item {% if stavke.laimeta == True %} list-group-item-success {% else %} list-group-item-danger {% endif %} text-center">
+    <b>{{ stavke.rungtynes.rezultatas }}</b></li>
+
+  <li class="list-group-item {% if stavke.pasirinkimas == '1' %} active {% endif %}">
+    {{ stavke.rungtynes.komanda1 }}<span style="float: right">{{ stavke.rungtynes.kofas1 }}</span></li>
+
+  <li class="list-group-item {% if stavke.pasirinkimas == 'x' %} active {% endif %}">
+    X<span style="float: right">{{ stavke.rungtynes.kofasx }}</span></li>
+
+  <li class="list-group-item {% if stavke.pasirinkimas == '2' %} active {% endif %}">
+    {{ stavke.rungtynes.komanda2 }}<span style="float: right">{{ stavke.rungtynes.kofas2 }}</span></li>
+</ul>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+{% endblock %}

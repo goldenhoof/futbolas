@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block page %}
+
+<div class="jumbotron">
+
+<h3 style="text-align:center">Artimiausios rungtynės:</h3>
+<br>
+
+{% for rungtyne, stavke in sarasas %}
+{% if rungtyne.prasidejo == False %}
+
+<ul class="list-group-horizontal">
+  <li class="list-group-item list-group-item-primary">{{ rungtyne.data|date:"m/d H:i" }}</li>
+
+  <a href="{% url 'pasirinkimas' id=rungtyne.id pasirinkimas='1' %}" class="list-group-item {% if stavke.pasirinkimas == '1' %} active {% endif %}">
+    {{ rungtyne.komanda1 }}<span style="float: right">{{ rungtyne.kofas1 }}</span></a>
+
+  <a href="{% url 'pasirinkimas' id=rungtyne.id pasirinkimas='x' %}" class="list-group-item {% if stavke.pasirinkimas == 'x' %} active {% endif %}">
+    X<span style="float: right">{{ rungtyne.kofasx }}</span></a>
+
+  <a href="{% url 'pasirinkimas' id=rungtyne.id pasirinkimas='2' %}" class="list-group-item {% if stavke.pasirinkimas == '2' %} active {% endif %}">
+    {{ rungtyne.komanda2 }}<span style="float: right">{{ rungtyne.kofas2 }}</span></a>
+</ul>
+
+{% endif %}
+{% endfor %}
+
+<br>
+<h3 style="text-align:center">Pasibaigusios rungtynės:</h3>
+<br>
+
+{% for rungtyne, stavke in sarasas reversed %}
+{% if rungtyne.prasidejo == True %}
+
+<ul class="list-group-horizontal">
+  <li class="list-group-item {% if stavke.laimeta == True %} list-group-item-success {% else %} list-group-item-danger {% endif %} text-center">
+    <b>{{ rungtyne.rezultatas }}</b></li>
+
+  <li class="list-group-item {% if stavke.pasirinkimas == '1' %} active {% endif %}">
+    {{ rungtyne.komanda1 }}<span style="float: right">{{ rungtyne.kofas1 }}</span></li>
+
+  <li class="list-group-item {% if stavke.pasirinkimas == 'x' %} active {% endif %}">
+    X<span style="float: right">{{ rungtyne.kofasx }}</span></li>
+
+  <li class="list-group-item {% if stavke.pasirinkimas == '2' %} active {% endif %}">
+    {{ rungtyne.komanda2 }}<span style="float: right">{{ rungtyne.kofas2 }}</span></li>
+</ul>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+{% endblock %}

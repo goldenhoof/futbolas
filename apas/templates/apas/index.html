@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block page %}
+
+<div class="jumbotron" style="align-items: center">
+
+<h3>Rezultatai:</h3>
+<p></p>
+
+<table class="rwd-table">
+
+  <tr>
+    <th>Vieta</th>
+    <th>Žaidėjas</th>
+    <th>Taškai</th>
+  </tr>
+
+  {% for zaidejas in zaidejai %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td ><a href="{% url 'zaidejas' pk=zaidejas %}">{{ zaidejas.user.username }}</a></td>
+    <td>{{ zaidejas.taskai| floatformat:2 }}</td>
+  </tr>
+  {% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

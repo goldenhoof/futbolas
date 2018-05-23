@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block page %}
+
+<div class="jumbotron">
+
+<h3 style="text-align:center">Artimiausios rungtynės:</h3>
+<br>
+
+{% for rungtyne in rungtynes %}
+{% if rungtyne.prasidejo == False %}
+
+<ul class="list-group-horizontal">
+  <li class="list-group-item list-group-item-info">{{ rungtyne.data|date:"m/d H:i" }}</li>
+  <li class="list-group-item">{{ rungtyne.komanda1 }}<span style="float: right">{{ rungtyne.kofas1 }}</span></li>
+  <li class="list-group-item">X<span style="float: right">{{ rungtyne.kofasx }}</span></li>
+  <li class="list-group-item">{{ rungtyne.komanda2 }}<span style="float: right">{{ rungtyne.kofas2 }}</span></li>
+</ul>
+
+{% endif %}
+{% endfor %}
+
+<br>
+<h3 style="text-align:center">Pasibaigusios rungtynės:</h3>
+<br>
+
+{% for rungtyne in rungtynes reversed %}
+{% if rungtyne.prasidejo == True %}
+
+<ul class="list-group-horizontal">
+  <li class="list-group-item list-group-item-info text-center">
+    <b>{{ rungtyne.rezultatas }}</b></li>
+
+  <li class="list-group-item {% if rungtyne.baigtis == '1' %} list-group-item-success {% endif %}">
+    {{ rungtyne.komanda1 }}<span style="float: right">{{ rungtyne.kofas1 }}</span></li>
+
+  <li class="list-group-item {% if rungtyne.baigtis == 'x' %} list-group-item-success {% endif %}">
+    X<span style="float: right">{{ rungtyne.kofasx }}</span></li>
+
+  <li class="list-group-item {% if rungtyne.baigtis == '2' %} list-group-item-success {% endif %}">
+    {{ rungtyne.komanda2 }}<span style="float: right">{{ rungtyne.kofas2 }}</span></li>
+</ul>
+
+{% endif %}
+{% endfor %}
+
+</div>
+
+{% endblock %}
